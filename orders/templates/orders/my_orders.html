@@ -1,0 +1,30 @@
+{% extends "shop/base.html" %}
+
+{% block title %}My Orders{% endblock %}
+
+{% block content %}
+    <h1>My Orders</h1>
+    <div class="order-info">
+        {% if orders %}
+            <ul>
+            {% for order in orders %}
+                <li>
+                    <h3>Order ID: {{ order.id }}</h3>
+                    <p>Created: {{ order.created }}</p>
+                    <p>Paid: {{ order.paid }}</p>
+                    <h4>Items:</h4>
+                    <ul>
+                        {% for item in order.items.all %}
+                            <li>
+                                {{ item.quantity }}x {{ item.product.name }} - ${{ item.total_price }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no orders.</p>
+        {% endif %}
+    </div>
+{% endblock %}
